@@ -1,40 +1,14 @@
-import { Footer, Header } from '@/components/site-shell';
+import { Footer, Header, BrandIcon } from '@/components/site-shell';
 import { WaitlistForm } from '@/components/waitlist-form';
 
-const steps = [['01', 'Talk', 'Tell MINE AI what’s going on.'], ['02', 'Plan', 'MINE AI organizes it into your day.'], ['03', 'Remember', 'Get reminders before things get missed.']];
-const features = [
-  ['Voice planning', 'Say what’s on your mind. MINE AI catches the details.'],
-  ['AI day planning', 'Turn scattered thoughts into a day that makes sense.'],
-  ['Smart reminders', 'Get a timely nudge before important things slip.'],
-  ['Tasks & routines', 'Keep one-offs and everyday rhythms moving together.'],
-  ['Today / Calendar', 'See what matters now and what’s coming next.'],
-  ['Organize life in one place', 'Bring work, home, errands and plans into one clear view.'],
-];
+const steps = [['Talk', 'Tell MINE AI what’s going on.'], ['Plan', 'MINE AI organizes it into your day.'], ['Remember', 'Get reminders before things get missed.']];
+const features = [['Voice planning', 'Talk naturally instead of organizing everything yourself.'], ['AI day planning', 'Turn your thoughts into a clear daily plan.'], ['Smart reminders', 'Get reminded before important moments.'], ['Tasks & routines', 'Keep daily responsibilities and routines together.']];
 
-function AppPreview() {
-  return <div className="app-preview" aria-label="Preview of the MINE AI day planner">
-    <div className="preview-orbit orbit-one" /><div className="preview-orbit orbit-two" />
-    <div className="voice-note"><span className="voice-dot" /><div><small>YOU SAID</small><p>“Dinner at 7, finish the proposal, and remind me to call Mum.”</p></div></div>
-    <div className="phone-frame"><div className="phone-status"><span>9:41</span><i /><span>● ◒</span></div><div className="phone-screen">
-      <div className="phone-brand"><span className="mini-mark">M</span><strong>MINE AI</strong><span className="profile-dot" /></div>
-      <p className="phone-label">GOOD MORNING</p><h2>Your day,<br /><em>made clear.</em></h2>
-      <div className="focus-card"><small>NEXT UP · 10:00 AM</small><strong>Finish the proposal</strong><span><i /> 45 min focus</span></div>
-      <div className="today-title"><strong>Today</strong><small>3 things left</small></div>
-      {[['12:30', 'Lunch with Maya', 'People'], ['4:00', 'Call Mum', 'Personal'], ['7:00', 'Dinner', 'Home']].map(([time, title, meta], index) => <div className="phone-task" key={title}><time>{time}</time><i className={`task-dot dot-${index}`} /><div><strong>{title}</strong><small>{meta}</small></div></div>)}
-      <div className="phone-nav"><span className="active">●<small>Today</small></span><span>□<small>Calendar</small></span><span>＋<small>Add</small></span></div>
-    </div></div>
-    <div className="reminder-chip"><span>✓</span><div><small>SMART REMINDER</small><strong>Call Mum at 4:00</strong></div></div>
-  </div>;
+function PhoneMockup() {
+  const tasks = [['10:00', 'Meeting at 10', 'Work', 'work'], ['5:30', 'Groceries after work', 'Home', 'home'], ['8:00', 'Call Mom tonight', 'Family', 'family']];
+  return <div className="phone-stage" aria-label="MINE AI Today screen preview"><div className="voice-card"><span className="mic-pulse">●</span><div><small>JUST SAY IT</small><strong>“Plan the rest of my day.”</strong></div></div><div className="phone"><div className="phone-hardware"><span>9:41</span><i /><span>● ◒</span></div><div className="phone-app"><div className="app-top"><div className="mini-brand"><BrandIcon /><b>MINE AI</b></div><span className="app-avatar">M</span></div><p className="app-date">THURSDAY, AUGUST 27</p><h2>Good morning</h2><div className="week-strip">{['M', 'T', 'W', 'T', 'F'].map((day, index) => <span className={index === 3 ? 'selected' : ''} key={`${day}-${index}`}><small>{day}</small><b>{24 + index}</b></span>)}</div><p className="ai-line">3 things today. <em>Meeting at 10 first.</em></p><div className="app-tabs"><strong>Schedule <i>3</i></strong><span>Routine <i>2</i></span></div><div className="task-list">{tasks.map(([time, title, category, color]) => <article className="task-card" key={title}><span className={`task-icon ${color}`}>✓</span><div><strong>{title}</strong><small>{time} · {category}</small></div><i className="task-check" /></article>)}</div><div className="say-bar"><span className="say-mic">●</span><span>Say anything…</span><b>＋</b></div></div></div><div className="reminder-card"><span>✓</span><div><small>REMINDER SET</small><strong>Call Mom · 8:00 PM</strong></div></div></div>;
 }
 
 export default function Home() {
-  return <><Header home /><main className="home-main">
-    <section className="home-hero"><div className="hero-aurora" /><div className="shell hero-grid">
-      <div className="hero-copy"><p className="hero-kicker"><span /> YOUR LIFE, MADE CLEAR</p><h1>Your own AI<br /><em>for life.</em></h1><p className="hero-lede">Tell MINE AI what’s happening in your day. It turns your thoughts into a clear plan, tasks and reminders.</p><WaitlistForm location="hero" /><p className="form-trust"><span>✓</span> Early access updates only. No noise.</p></div>
-      <AppPreview />
-    </div></section>
-    <section id="how-it-works" className="home-section how-section"><div className="shell"><div className="section-intro"><p>HOW IT WORKS</p><h2>From thought<br />to handled.</h2></div><div className="steps-grid">{steps.map(([number, title, copy]) => <article key={title}><span>{number}</span><div className="step-symbol" aria-hidden>{title === 'Talk' ? '≋' : title === 'Plan' ? '⌁' : '◴'}</div><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
-    <section id="features" className="home-section features-section"><div className="shell features-layout"><div className="features-copy"><p className="section-label">BUILT AROUND REAL LIFE</p><h2>Less juggling.<br /><em>More living.</em></h2><p>MINE AI brings the moving pieces of your day together—without turning life into another system to manage.</p></div><div className="feature-list">{features.map(([title, copy], index) => <article key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></div></section>
-    <section id="early-access" className="final-cta"><div className="cta-glow" /><div className="shell cta-inner"><p className="section-label">EARLY ACCESS</p><h2>Be one of the first<br />to try <em>MINE AI.</em></h2><p>A calmer day starts with getting everything out of your head.</p><WaitlistForm location="final" theme="light" /></div></section>
-  </main><Footer /></>;
+  return <><Header home /><main className="home-main"><section className="home-hero"><div className="shell hero-grid"><div className="hero-copy"><p className="brand-line">MINE AI</p><h1>Your own AI</h1><p className="hero-lede">Tell MINE AI what’s happening in your day. It turns your thoughts into a clear plan, tasks and reminders.</p><ul className="benefits"><li>Talk naturally</li><li>Get a clear plan</li><li>Stay ahead with reminders</li></ul><WaitlistForm location="hero" /><p className="form-note-home">Be among the first to try MINE AI.</p></div><PhoneMockup /></div></section><section id="how-it-works" className="home-section how-section"><div className="shell"><div className="section-heading"><p>HOW IT WORKS</p><h2>From your thoughts<br />to a clear day.</h2></div><div className="steps-grid">{steps.map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><div className="step-icon">{index === 0 ? '●' : index === 1 ? '✓' : '◷'}</div><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section><section id="features" className="home-section features-section"><div className="shell"><div className="section-heading"><p>MADE FOR REAL DAYS</p><h2>The essentials,<br />handled calmly.</h2></div><div className="features-grid">{features.map(([title, copy], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section><section id="early-access" className="waitlist-section"><div className="shell waitlist-inner"><p>EARLY ACCESS</p><h2>Your own AI,<br />coming soon.</h2><p>Be among the first to try MINE AI.</p><WaitlistForm location="final" theme="light" /></div></section></main><Footer /></>;
 }
